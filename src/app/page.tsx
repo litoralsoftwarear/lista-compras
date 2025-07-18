@@ -12,6 +12,15 @@ export default function Home() {
   const [shop, setShop] = useState<IShop | null>(null)
   const shops = useAppSelector(state => state.shops)
 
+useEffect(() => { //Uso useEffect para sincronizar el estado local con el estado global de Redux
+  if (shop) { // Valido si hay una tienda seleccionada antes de actualizar
+    const updatedShop = shops.find(s => s.id=== shop.id); //Busca en el estado global la tienda que coincida con la selecccionada
+   if (updatedShop) {  //Actualiza el estado local con la información fresca del estado global
+        setShop(updatedShop)
+      }
+    }
+    
+  }, [shops, shop?.id]) //Define las dependencias del useEffect para que se ejecute cuando cambien las tiendas o la tienda seleccionada
   const handleSelectShop = (data: IShop) => {
     setShop(data.id === shop?.id ? null : data)
   }
