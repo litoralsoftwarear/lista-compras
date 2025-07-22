@@ -5,7 +5,7 @@ import { FormEventHandler, useEffect, useState } from "react"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { useAppDispatch, useAppSelector } from "@/store"
-import { addProduct } from "@/store/features/shopsSlice"
+import { addProduct } from "@/store/features/storesSlice"
 import IShop from "@/interfaces/Shop.interface"
 
 const initialForm = {
@@ -16,7 +16,7 @@ const initialForm = {
     quantity: "",
 }
 
-const ProductCreationForm: React.FC<{ shop: IShop }> = ({ shop }) => {
+const ProductCreationForm: React.FC<{ store: IShop }> = ({ store }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [form, setForm] = useState(initialForm)
     const dispatch = useAppDispatch()
@@ -37,10 +37,11 @@ const ProductCreationForm: React.FC<{ shop: IShop }> = ({ shop }) => {
         }
 
         dispatch(addProduct({
-            shopId: shop.id,
+            shopId: store.id,
             product: {
                 ...form,
-                id: (shop.products[shop.products.length - 1]?.id || 0) + 1,
+                id: (store.products[store.products.length - 1]?.id || 0) + 1,
+                shopId: store.id,
                 price: Number(form.price),
                 quantity: Number(form.quantity),
                 createdAt: new Date()

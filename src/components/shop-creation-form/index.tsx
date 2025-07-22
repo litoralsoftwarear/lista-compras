@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { useAppDispatch, useAppSelector } from "@/store"
-import { addShop } from "@/store/features/shopsSlice"
+import { addStore } from "@/store/features/storesSlice"
 
 const initialForm = {
     name: "",
@@ -15,7 +15,7 @@ const initialForm = {
 }
 
 const ShopCreationForm = () => {
-    const shops = useAppSelector(state => state.shops)
+    const stores = useAppSelector(state => state.stores)
 
     const [isOpen, setIsOpen] = useState(false)
     const [form, setForm] = useState(initialForm)
@@ -36,9 +36,9 @@ const ShopCreationForm = () => {
             return
         }
 
-        dispatch(addShop({
+        dispatch(addStore({
             ...form,
-            id: (shops[shops.length - 1]?.id || 0) + 1,
+            id: (stores[stores.length - 1]?.id || 0) + 1,
             createdAt: new Date(),
             products: []
         }))
