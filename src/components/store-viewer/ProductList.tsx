@@ -1,6 +1,3 @@
-import IShop from "@/interfaces/Shop.interface"
-import { useAppSelector } from "@/store"
-import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { ShoppingBasket } from "lucide-react"
 import ProductCreationForm from "../product-creation-form"

@@ -5,6 +5,7 @@ import ProductQuantity from "./ProductQuantity"
 import { formatNumbers } from "@/lib/utils"
 import RemoveProduct from "./RemoveProduct"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import ProductUpdateForm from "../product-update-form"
 
 const ProductItem: React.FC<{ data: IProduct }> = ({ data }) => {
     return (
@@ -25,10 +26,13 @@ const ProductItem: React.FC<{ data: IProduct }> = ({ data }) => {
             {/* Información del producto */}
             <div className="flex-1 min-w-0">
                 <Tooltip>
-                    <TooltipTrigger asChild className="overflow-hidden">
-                        <h3 className="font-medium text-gray-900 truncate group-hover:text-blue-600 transition-colors">
-                            {data.name}
-                        </h3>
+                    <TooltipTrigger asChild className="flex items-center gap-2 overflow-hidden">
+                        <div>
+                            <h3 className="font-medium text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+                                {data.name}
+                            </h3>
+                            <ProductUpdateForm product={data} />
+                        </div>
                     </TooltipTrigger>
                     <TooltipContent>
                         <p className="text-lg">{data.name}</p>
@@ -54,7 +58,7 @@ const ProductItem: React.FC<{ data: IProduct }> = ({ data }) => {
 
                 <RemoveProduct data={data} />
             </div>
-        </div >
+        </div>
     )
 }
 

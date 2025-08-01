@@ -5,9 +5,9 @@ import StoreInfo from "./StoreInfo"
 import { useAppSelector } from "@/store"
 
 const StoreViewer = () => {
-    const shopId = useAppSelector(state => state.storeSelected)
+    const storeId = useAppSelector(state => state.storeSelected)
 
-    if (!shopId) return (
+    if (!storeId) return (
         <Card className="h-full">
             <CardContent className="flex-auto flex flex-col gap-2 items-center justify-center">
                 <div className="h-[50px] w-[50px] bg-blue-100 rounded-full flex items-center justify-center">

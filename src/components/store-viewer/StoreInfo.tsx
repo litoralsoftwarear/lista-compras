@@ -2,6 +2,7 @@ import { Box, DollarSign, Store } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
 import { formatNumbers } from "@/lib/utils"
 import useCurrentStore from "@/hooks/useCurrentStore"
+import StoreUpdateForm from "../store-update-form"
 
 const StoreInfo = () => {
     const store = useCurrentStore()
@@ -13,8 +14,7 @@ const StoreInfo = () => {
             <CardHeader className="flex justify-between items-center">
                 <div className="flex flex-col">
                     <CardTitle className="flex items-center gap-2 text-zinc-700 text-xl font-semibold">
-                        <Store className="text-blue-500" /> {store.name}
-
+                        <Store className="text-blue-500" /> {store.name} <StoreUpdateForm />
                     </CardTitle>
                     <CardDescription>{store.description}</CardDescription>
                 </div>

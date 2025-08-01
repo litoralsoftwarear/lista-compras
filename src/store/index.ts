@@ -1,5 +1,3 @@
-"use client"
-
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
@@ -14,6 +12,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
+    whitelist: ['token']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)

@@ -1,6 +1,6 @@
 import IProduct from "./Product.interface"
 
-interface IShop {
+interface IStore {
     id: number
     name: string
     description: string
@@ -11,4 +11,4 @@ interface IShop {
     createdAt: Date
 }
 
-export default IShop
+export default IStore

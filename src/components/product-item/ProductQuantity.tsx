@@ -1,39 +1,43 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Edit3, Minus, Plus } from "lucide-react"
 import IProduct from "@/interfaces/Product.interface"
 import { useAppDispatch } from "@/store"
-import { editProduct } from "@/store/features/storesSlice"
+import { updateProduct } from "@/store/features/storesSlice"
 
 const ProductQuantity: React.FC<{ data: IProduct }> = ({ data }) => {
     const [editable, setEditable] = useState(false)
-    const [quantity, cheCambia] = useState(data.quantity.toString())
+    const [quantity, setQuantity] = useState(data.quantity.toString())
     const dispatch = useAppDispatch()
 
     const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newQuantity = e.target.value
-        cheCambia(newQuantity)
+        setQuantity(newQuantity)
     }
 
-    const controlQuantity  = (type: "increment" | "decrement") => {
+    const controlQuantity = (type: "increment" | "decrement") => {
         const newQuantity = type === "increment" ? parseInt(quantity) + 1 : parseInt(quantity) - 1
-        cheCambia(newQuantity.toString())
-        dispatch(editProduct({ productId: data.id, shopId: data.shopId, data: { quantity: newQuantity } }))
+        setQuantity(newQuantity.toString())
+        dispatch(updateProduct({ productId: data.id, storeId: data.storeId, data: { quantity: newQuantity } }))
     }
 
     const handleSave = () => {
         const newQuantity = parseInt(quantity)
         if (!isNaN(newQuantity) && newQuantity >= 0) {
             setEditable(false)
-            dispatch(editProduct({ productId: data.id, shopId: data.shopId, data: { quantity: newQuantity } }))
+            dispatch(updateProduct({ productId: data.id, storeId: data.storeId, data: { quantity: newQuantity } }))
         }
     }
 
     const handleCancel = () => {
         setEditable(false)
-        cheCambia(data.quantity.toString())
+        setQuantity(data.quantity.toString())
     }
+
+    useEffect(() => {
+        setQuantity(data.quantity.toString())
+    }, [data.quantity])
 
     return (
         <>

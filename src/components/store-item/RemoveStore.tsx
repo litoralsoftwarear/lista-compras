@@ -1,33 +1,36 @@
-import IProduct from "@/interfaces/Product.interface"
-import { useAppDispatch } from "@/store"
+import useCurrentStore from "@/hooks/useCurrentStore"
+import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { Button } from "../ui/button"
 import { X } from "lucide-react"
 import Image from "next/image"
-import { removeProduct } from "@/store/features/storesSlice"
-import { useState } from "react"
+import { useAppDispatch } from "@/store"
+import { removeStore } from "@/store/features/storesSlice"
+import IStore from "@/interfaces/Store.interface"
 
-const RemoveProduct = ({ data }: { data: IProduct }) => {
-    const [isOpen, setIsOpen] = useState(false)
+const RemoveStore: React.FC<{ data: IStore }> = ({ data }) => {
     const dispatch = useAppDispatch()
 
-    const handleRemoveProduct = () => {
-        dispatch(removeProduct({ productId: data.id, storeId: data.storeId }))
+    const [isOpen, setIsOpen] = useState(false)
+
+    const handleRemoveStore = () => {
+        dispatch(removeStore({ storeId: data.id }))
     }
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
+            <DialogTrigger asChild className="ml-auto">
                 <Button
                     size="sm"
                     variant="ghost"
-                    className="h-8 w-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50 opacity-0 group-hover:opacity-100 transition-all"
+                    className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-all"
                 >
                     <X className="w-4 h-4" />
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Eliminar producto</DialogTitle>
+                    <DialogTitle>Eliminar tienda</DialogTitle>
                 </DialogHeader>
                 <div className="flex justify-center items-center gap-2">
                     <div className="w-16 h-12 relative flex-shrink-0 rounded-md overflow-hidden shadow-sm">
@@ -39,13 +42,13 @@ const RemoveProduct = ({ data }: { data: IProduct }) => {
                         />
                     </div>
                     <p className="text-sm text-gray-500">
-                        ¿Estas seguro que quieres eliminar el producto <b>{data.name}</b>?
+                        ¿Estas seguro que quieres eliminar la tienda <b>{data.name}</b>?
                     </p>
-                    <Button className="bg-red-500" onClick={handleRemoveProduct}>Eliminar</Button>
+                    <Button className="bg-red-500" onClick={handleRemoveStore}>Eliminar</Button>
                 </div>
             </DialogContent>
         </Dialog>
     )
 }
 
-export default RemoveProduct
+export default RemoveStore

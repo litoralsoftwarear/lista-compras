@@ -1,10 +1,10 @@
-import IShop from "@/interfaces/Shop.interface"
+import IStore from "@/interfaces/Store.interface"
 import { useAppSelector } from "@/store"
 import { useEffect, useState } from "react"
 
 const useCurrentStore = () => {
     const storeId = useAppSelector(state => state.storeSelected)
-    const [store, setStore] = useState<IShop | null>(null)
+    const [store, setStore] = useState<IStore | null>(null)
     const stores = useAppSelector(state => state.stores)
 
     useEffect(() => {

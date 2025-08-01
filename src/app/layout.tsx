@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/components/redux-provider";
+import RouteGuard from "@/components/route-guard";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +31,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReduxProvider>
-          {children}
+          <ToastContainer position="bottom-center" stacked />
+          <RouteGuard>
+            {children}
+          </RouteGuard>
         </ReduxProvider>
       </body>
-    </html>
+    </html >
   );
 }
