@@ -24,13 +24,13 @@ export const registerFormData = z.object({
 export type RegisterFormData = z.infer<typeof registerFormData>
 
 
-export const shopCreationFormData = z.object({
+export const storeCreationFormData = z.object({
     name: z.string("Tiene que ser un String").nonempty("Este campo no debe estar vacío"),
     image: z.url("Debe ser una URL (ej: https://dominio.com/image.png)").nonempty("Este campo no debe estar vacío"),
     description: z.string().optional().or(z.literal(""))
 })
 
-export type ShopCreationFormData = z.infer<typeof shopCreationFormData>
+export type StoreCreationFormData = z.infer<typeof storeCreationFormData>
 
 
 export const productCreationFormData = z.object({

@@ -2,7 +2,7 @@ import { Box, DollarSign, Store } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
 import { formatNumbers } from "@/lib/utils"
 import useCurrentStore from "@/hooks/useCurrentStore"
-import StoreUpdateForm from "../store-update-form"
+import StoreUpdateForm from "../../domain/stores/components/store-update-form"
 
 const StoreInfo = () => {
     const store = useCurrentStore()

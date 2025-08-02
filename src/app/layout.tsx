@@ -4,6 +4,7 @@ import "./globals.css";
 import ReduxProvider from "@/components/redux-provider";
 import RouteGuard from "@/components/route-guard";
 import { ToastContainer } from "react-toastify";
+import Header from "@/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +31,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ReduxProvider>
-          <ToastContainer position="bottom-center" stacked />
-          <RouteGuard>
-            {children}
-          </RouteGuard>
-        </ReduxProvider>
+        <main className="flex flex-col min-h-screen bg-gray-100">
+          <ReduxProvider>
+            <ToastContainer position="bottom-center" stacked />
+            <RouteGuard>
+              <Header />
+              {children}
+            </RouteGuard>
+          </ReduxProvider>
+        </main>
       </body>
     </html >
   );

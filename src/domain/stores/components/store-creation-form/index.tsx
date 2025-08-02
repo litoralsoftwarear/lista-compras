@@ -1,20 +1,25 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "../ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
-import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
+import React, { useState } from "react"
+import { Button } from "../../../../components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../../../../components/ui/dialog"
+import { Input } from "../../../../components/ui/input"
+import { Textarea } from "../../../../components/ui/textarea"
 import { useAppDispatch, useAppSelector } from "@/store"
-import { addStore } from "@/store/features/storesSlice"
+import { addStore } from "@/domain/stores/features/storesSlice"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ShopCreationFormData, shopCreationFormData } from "@/schemas"
+import { StoreCreationFormData, storeCreationFormData } from "@/schemas"
+import createStore from "../../services/createStore.service"
+import { toast } from "react-toastify"
 
-const ShopCreationForm = () => {
+const StoreCreationForm: React.FC<{ trigger?: React.ReactNode }> = ({ trigger }) => {
+    const token = useAppSelector(state => state.token)
     const { register, reset, handleSubmit, formState: { errors } } = useForm({
-        resolver: zodResolver(shopCreationFormData)
+        resolver: zodResolver(storeCreationFormData)
     })
+
+    const [isPending, setIsPending] = useState(false)
 
     const stores = useAppSelector(state => state.stores)
 
@@ -22,22 +27,27 @@ const ShopCreationForm = () => {
     const dispatch = useAppDispatch()
 
 
-    const onSave = (data: ShopCreationFormData) => {
-        dispatch(addStore({
-            ...data,
-            id: (stores[stores.length - 1]?.id || 0) + 1,
-            createdAt: new Date(),
-            products: []
-        }))
+    const onSave = (data: StoreCreationFormData) => {
+        if (!token) return
 
-        setIsOpen(false)
-        reset()
+        setIsPending(true)
+
+        createStore({ token, ...data })
+            .then((store) => {
+                dispatch(addStore(store))
+
+                setIsOpen(false)
+                reset()
+            })
+            .catch((error) => toast.error(error?.reponse?.data?.message || "Error inesperado 😿"))
+            .finally(() => setIsPending(false))
+
     }
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button onClick={() => setIsOpen(true)}>Agregar tienda</Button>
+                {trigger || <Button>Nueva tienda</Button>}
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -56,11 +66,11 @@ const ShopCreationForm = () => {
                         <Textarea className="resize-none" {...register("description")} placeholder="Descripción de la tienda"></Textarea>
                         {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
                     </div>
-                    <Button type="submit">Guardar</Button>
+                    <Button type="submit" disabled={isPending}>Crear</Button>
                 </form>
             </DialogContent>
         </Dialog>
     )
 }
 
-export default ShopCreationForm
+export default StoreCreationForm

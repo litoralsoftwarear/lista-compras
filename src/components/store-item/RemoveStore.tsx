@@ -5,7 +5,7 @@ import { Button } from "../ui/button"
 import { X } from "lucide-react"
 import Image from "next/image"
 import { useAppDispatch } from "@/store"
-import { removeStore } from "@/store/features/storesSlice"
+import { removeStore } from "@/domain/stores/features/storesSlice"
 import IStore from "@/interfaces/Store.interface"
 
 const RemoveStore: React.FC<{ data: IStore }> = ({ data }) => {

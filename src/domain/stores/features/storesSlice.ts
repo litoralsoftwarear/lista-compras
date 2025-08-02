@@ -7,6 +7,7 @@ const storesSlice = createSlice({
     name: "stores",
     initialState,
     reducers: {
+        setStoreList: (_, { payload }) => payload,
         addStore: (state, { payload }) => {
             state.push(payload)
         },
@@ -45,5 +46,5 @@ const storesSlice = createSlice({
     }
 })
 
-export const { addStore, updateStore, removeStore, addProduct, updateProduct, removeProduct } = storesSlice.actions
+export const { setStoreList, addStore, updateStore, removeStore, addProduct, updateProduct, removeProduct } = storesSlice.actions
 export default storesSlice.reducer

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ProductCreationFormData, productCreationFormData } from "@/schemas"
 import { useAppDispatch } from "@/store"
-import { updateProduct } from "@/store/features/storesSlice"
+import { updateProduct } from "@/domain/stores/features/storesSlice"
 import IProduct from "@/interfaces/Product.interface"
 
 const ProductUpdateForm: React.FC<{ product: IProduct }> = ({ product }) => {

@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "../ui/button"
 import { X } from "lucide-react"
 import Image from "next/image"
-import { removeProduct } from "@/store/features/storesSlice"
+import { removeProduct } from "@/domain/stores/features/storesSlice"
 import { useState } from "react"
 
 const RemoveProduct = ({ data }: { data: IProduct }) => {

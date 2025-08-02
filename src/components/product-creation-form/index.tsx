@@ -5,12 +5,11 @@ import { useState } from "react"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { useAppDispatch } from "@/store"
-import { addProduct } from "@/store/features/storesSlice"
+import { addProduct } from "@/domain/stores/features/storesSlice"
 import IStore from "@/interfaces/Store.interface"
 import { productCreationFormData, ProductCreationFormData } from "@/schemas"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-
 
 const ProductCreationForm: React.FC<{ store: IStore }> = ({ store }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
@@ -18,7 +17,6 @@ const ProductCreationForm: React.FC<{ store: IStore }> = ({ store }) => {
     })
     const [isOpen, setIsOpen] = useState(false)
     const dispatch = useAppDispatch()
-
 
     const onSave = (data: ProductCreationFormData) => {
         dispatch(addProduct({

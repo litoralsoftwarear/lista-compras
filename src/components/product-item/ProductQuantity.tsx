@@ -4,7 +4,7 @@ import { Button } from "../ui/button"
 import { Edit3, Minus, Plus } from "lucide-react"
 import IProduct from "@/interfaces/Product.interface"
 import { useAppDispatch } from "@/store"
-import { updateProduct } from "@/store/features/storesSlice"
+import { updateProduct } from "@/domain/stores/features/storesSlice"
 
 const ProductQuantity: React.FC<{ data: IProduct }> = ({ data }) => {
     const [editable, setEditable] = useState(false)

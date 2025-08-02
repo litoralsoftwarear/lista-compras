@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit"
-import storesReducer from "./features/storesSlice"
+import storesReducer from "../domain/stores/features/storesSlice"
 import storeSelectedReducer from "./features/storeSelectedSlice"
 import tokenReducer from "./features/tokenSlice"
 
